@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class PasswordStrengthMeterTest {
-
     /**
      검사 규칙
      1. 길이가 8글자 이상
@@ -16,9 +15,26 @@ class PasswordStrengthMeterTest {
      **/
     @Test
     @DisplayName("암호가 모든 조건을 충족하면 암호 강도는 '강함'")
-    fun meetsAllCriteria_Then_String() {
-        val result = PasswordStrengthMeter().passwordStrengthMeter("abcde123450!@#%^^000fghAAA")
-        assertEquals(PasswordStrength.STRONG, result)
+    fun meetsAllCriteria_Then_Strong() {
+        assertStrength("abcde123450!@#%^^000fghAAA", PasswordStrength.STRONG)
+    }
+
+    @Test
+    @DisplayName("암호가 조건 두 개를 충족하면 암호 강도는 '보통'")
+    fun meetsTwoCriteria_Then_Normal() {
+        assertStrength("abcde123450!@#%^^000fgh", PasswordStrength.NORMAL)
+    }
+
+    @Test
+    @DisplayName("암호가 모든 조건을 충족하면 암호 강도는 '약함'")
+    fun meetsOneCriteria_Then_Weak() {
+        assertStrength("abcdefgh", PasswordStrength.WEAK)
+    }
+
+    @Test
+    @DisplayName("패스워드를 입력하지 않으면 invalid 반환")
+    fun nullInput_Then_Invalid() {
+        assertStrength("", PasswordStrength.INVALID)
     }
 
     // https://www.techiedelight.com/conversion-between-char-and-int-in-kotlin/
@@ -30,5 +46,9 @@ class PasswordStrengthMeterTest {
 
         val nums = (0..9).map { Character.forDigit(it, 10) }
         println(nums)
+    }
+
+    fun assertStrength(password: String, expectedStrength: PasswordStrength) {
+        assertEquals(expectedStrength, PasswordStrengthMeter().passwordStrengthMeter(password))
     }
 }

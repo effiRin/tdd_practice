@@ -1,5 +1,6 @@
 enum class PasswordStrength {
     STRONG,
     WEAK,
-    NORMAL
+    NORMAL,
+    INVALID
 }
