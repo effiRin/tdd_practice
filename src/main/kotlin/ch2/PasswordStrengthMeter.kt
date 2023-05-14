@@ -1,3 +1,5 @@
+package ch2
+
 import java.security.InvalidParameterException
 
 class PasswordStrengthMeter {
@@ -7,19 +9,33 @@ class PasswordStrengthMeter {
 
         val passwordChars = password.toCharArray()
 
-        val result = listOf(
-            lengthMeter(passwordChars),
-            containNumMeter(passwordChars),
-            passwordChars.any { it.isUpperCase() }
-        ).filter { it }
+        var count = 0
+        if (lengthMeter(passwordChars)) count++
+        if (containNumMeter(passwordChars)) count++
+        if (password.any { it.isUpperCase() }) count++
 
-        return when (result.size) {
+        return when (count) {
             3 -> PasswordStrength.STRONG
             2 -> PasswordStrength.NORMAL
             1 -> PasswordStrength.WEAK
             0 -> PasswordStrength.INVALID
             else -> throw InvalidParameterException()
         }
+        // 측정 결과 : 24
+
+//        val result = listOf(
+//            lengthMeter(passwordChars),
+//            containNumMeter(passwordChars),
+//            passwordChars.any { it.isUpperCase() }
+//        ).filter { it }
+
+//        return when (result.size) {
+//            3 -> ch2.PasswordStrength.STRONG
+//            2 -> ch2.PasswordStrength.NORMAL
+//            1 -> ch2.PasswordStrength.WEAK
+//            0 -> ch2.PasswordStrength.INVALID
+//            else -> throw InvalidParameterException()
+//  측정 결과 : 40
     }
 
     private fun lengthMeter(passwordChars: CharArray): Boolean =

@@ -1,3 +1,5 @@
+package ch2
+
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -37,6 +39,16 @@ class PasswordStrengthMeterTest {
         assertStrength("", PasswordStrength.INVALID)
     }
 
+    @Test
+    @DisplayName("성능 측정")
+    fun performanceTest() {
+        val start = System.currentTimeMillis()
+        assertStrength("abcdefgh", PasswordStrength.WEAK)
+        println(System.currentTimeMillis() - start)
+    }
+    // 40
+    // 24
+
     // https://www.techiedelight.com/conversion-between-char-and-int-in-kotlin/
     @Test
     fun intToCharTest() {
@@ -48,7 +60,7 @@ class PasswordStrengthMeterTest {
         println(nums)
     }
 
-    fun assertStrength(password: String, expectedStrength: PasswordStrength) {
+    private fun assertStrength(password: String, expectedStrength: PasswordStrength) {
         assertEquals(expectedStrength, PasswordStrengthMeter().passwordStrengthMeter(password))
     }
 }
