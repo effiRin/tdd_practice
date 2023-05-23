@@ -1,4 +1,4 @@
-package ch7
+package ch7.stub
 
 class StubWeakPasswordChecker() : WeakPasswordChecker {
     private var weak: Boolean = false

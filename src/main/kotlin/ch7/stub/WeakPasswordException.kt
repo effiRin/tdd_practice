@@ -1,3 +1,3 @@
-package ch7
+package ch7.stub
 
 class WeakPasswordException : RuntimeException()

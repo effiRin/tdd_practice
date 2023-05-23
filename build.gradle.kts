@@ -14,6 +14,9 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation("org.mockito:mockito-core:2.1.0")
+
 //    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 //    testCompileOnly("junit:junit:4.13")
 //    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
